@@ -1,0 +1,17 @@
+.menu-item {
+    padding: 15px 25px;
+    cursor: pointer;
+    font-family: 'Andika', sans-serif;
+    border-left: solid 1px rgb(252, 186, 132);
+    line-height: 1.2;
+    transition-property: all;
+    transition-duration: 0.5s;
+    font-size: 14px;
+}
+.menu-item:hover {
+    background: rgb(252, 186, 132);
+    color: #fff;
+}
+.menu-item:last-child {
+    border-right: solid 1px rgb(252, 186, 132);
+}
