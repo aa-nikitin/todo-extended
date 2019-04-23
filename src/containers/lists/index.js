@@ -19,10 +19,29 @@ const MENU = [
 ];
 
 class Lists extends Component {
+    state = {
+        listName: ''
+    };
+    handleChange = ({ target: { value } }) => {
+        this.setState({ listName: value });
+    };
+    addList = ({ key }) => {
+        const { listName } = this.state;
+        if (listName.length > 1 && (!key || key === 'Enter')) {
+            console.log(listName);
+            this.setState({ listName: '' });
+        }
+    };
     render() {
+        const { listName } = this.state;
         return (
             <div className="list-wrapper">
-                <Menu menuList={MENU} />
+                <Menu
+                    menuList={MENU}
+                    onChange={this.handleChange}
+                    listName={listName}
+                    addList={this.addList}
+                />
                 <ToDo />
             </div>
         );
