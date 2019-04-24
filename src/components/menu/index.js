@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MenuItem from '../menu-item';
 import './style.css';
 
@@ -24,6 +25,20 @@ const Menu = ({ menuList, onChange, listName, addList }) => {
             </div>
         </div>
     );
+};
+
+Menu.propTypes = {
+    menuList: PropTypes.array,
+    onChange: PropTypes.func,
+    listName: PropTypes.string,
+    addList: PropTypes.func
+};
+
+Menu.defaultProps = {
+    menuList: [],
+    onChange: () => {},
+    listName: '',
+    addList: () => {}
 };
 
 export default Menu;

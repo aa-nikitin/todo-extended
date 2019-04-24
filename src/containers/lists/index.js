@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
-import './style.css';
+import { connect } from 'react-redux';
+
 import Menu from '../../components/menu';
 import ToDo from '../todo';
+import { addList } from '../../actions';
 
-const MENU = [
-    {
-        id: 1,
-        name: 'пункт 1'
-    },
-    {
-        id: 2,
-        name: 'пункт 2'
-    },
-    {
-        id: 3,
-        name: 'пункт 3'
-    }
-];
+import './style.css';
 
 class Lists extends Component {
     state = {
@@ -27,17 +16,19 @@ class Lists extends Component {
     };
     addList = ({ key }) => {
         const { listName } = this.state;
+        const { addList } = this.props;
         if (listName.length > 1 && (!key || key === 'Enter')) {
-            console.log(listName);
-            this.setState({ listName: '' });
+            addList(new Date().getTime(), listName);
+            this.setState({ listName: '' }, () => console.log(this.props));
         }
     };
     render() {
+        const { lists } = this.props;
         const { listName } = this.state;
         return (
             <div className="list-wrapper">
                 <Menu
-                    menuList={MENU}
+                    menuList={lists}
                     onChange={this.handleChange}
                     listName={listName}
                     addList={this.addList}
@@ -48,4 +39,11 @@ class Lists extends Component {
     }
 }
 
-export default Lists;
+const mapStateToProps = ({ lists }) => ({
+    lists
+});
+
+export default connect(
+    mapStateToProps,
+    { addList }
+)(Lists);
