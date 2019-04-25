@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Menu from '../../components/menu';
-import ToDo from '../todo';
-import { addList } from '../../actions';
+import ToDo from '../../components/todo';
+import { addList, activeMenu } from '../../actions';
 
 import './style.css';
 
@@ -22,9 +22,14 @@ class Lists extends Component {
             this.setState({ listName: '' }, () => console.log(this.props));
         }
     };
+    activeList = (lists, id) => {
+        return lists.filter(list => list.id === id);
+    };
     render() {
-        const { lists } = this.props;
+        const { lists, activeMenu, activeListId } = this.props;
         const { listName } = this.state;
+        const activeList = this.activeList(lists, activeListId);
+        // console.log(activeMenu);
         return (
             <div className="list-wrapper">
                 <Menu
@@ -32,18 +37,23 @@ class Lists extends Component {
                     onChange={this.handleChange}
                     listName={listName}
                     addList={this.addList}
+                    activeMenu={activeMenu}
                 />
-                <ToDo />
+                <ToDo tasksList={activeList[0].tasks} />
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ lists }) => ({
-    lists
-});
+const mapStateToProps = state => {
+    console.log(state);
+    return {
+        lists: state.lists,
+        activeListId: state.activeList
+    };
+};
 
 export default connect(
     mapStateToProps,
-    { addList }
+    { addList, activeMenu }
 )(Lists);

@@ -3,12 +3,17 @@ import PropTypes from 'prop-types';
 import MenuItem from '../menu-item';
 import './style.css';
 
-const Menu = ({ menuList, onChange, listName, addList }) => {
+const Menu = ({ menuList, onChange, listName, addList, activeMenu }) => {
     return (
         <div className="header">
             <ul className="menu">
                 {menuList.map(({ id, name }) => (
-                    <MenuItem key={id} nameMenuItem={name} />
+                    <MenuItem
+                        activeMenu={activeMenu}
+                        key={id}
+                        nameMenuItem={name}
+                        id={id}
+                    />
                 ))}
             </ul>
             <div className="add-todo">
