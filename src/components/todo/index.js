@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 import ToDoList from '../../components/todo-list';
 import Footer from '../../components/footer';
@@ -11,7 +12,7 @@ import TodoInput from '../../components/todo-input';
 // ];
 
 const ToDo = ({ tasksList }) => {
-    console.log(tasksList);
+    // console.log(tasksList);
     return (
         <div className="todo-wrapper">
             <TodoInput />
@@ -19,6 +20,14 @@ const ToDo = ({ tasksList }) => {
             <Footer activeFilter={'all'} />
         </div>
     );
+};
+
+ToDo.propTypes = {
+    tasksList: PropTypes.array
+};
+
+ToDo.defaultProps = {
+    tasksList: []
 };
 
 export default ToDo;

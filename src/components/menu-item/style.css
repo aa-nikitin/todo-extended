@@ -8,6 +8,10 @@
     transition-duration: 0.5s;
     font-size: 14px;
 }
+.menu-item.active {
+    background: rgb(54, 160, 247);
+    color: #fff;
+}
 .menu-item:hover {
     background: rgb(54, 160, 247);
     color: #fff;

@@ -1,6 +1,6 @@
 import { MENU_ACTIVE } from '../constants';
 
-const ACTIVE_MENU = 2;
+const ACTIVE_MENU = 0;
 
 const activeMenu = (state = ACTIVE_MENU, { type, payload }) => {
     switch (type) {

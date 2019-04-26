@@ -19,17 +19,24 @@ class Lists extends Component {
         const { addList } = this.props;
         if (listName.length > 1 && (!key || key === 'Enter')) {
             addList(new Date().getTime(), listName);
-            this.setState({ listName: '' }, () => console.log(this.props));
+            this.setState({ listName: '' } /*, () => console.log(this.props)*/);
         }
     };
     activeList = (lists, id) => {
-        return lists.filter(list => list.id === id);
+        const activeList = lists.filter(list => list.id === id)[0];
+        if (activeList) {
+            return activeList;
+        } else if (lists[0]) {
+            return lists[lists.length - 1];
+        }
+        return {};
     };
     render() {
         const { lists, activeMenu, activeListId } = this.props;
         const { listName } = this.state;
         const activeList = this.activeList(lists, activeListId);
-        // console.log(activeMenu);
+
+        // if (activeList.id) console.log(activeList.name);
         return (
             <div className="list-wrapper">
                 <Menu
@@ -38,15 +45,16 @@ class Lists extends Component {
                     listName={listName}
                     addList={this.addList}
                     activeMenu={activeMenu}
+                    idActiveMenu={activeList.id}
                 />
-                <ToDo tasksList={activeList[0].tasks} />
+                {activeList.id && <ToDo tasksList={activeList.tasks} />}
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    console.log(state);
+    // console.log(state);
     return {
         lists: state.lists,
         activeListId: state.activeList
