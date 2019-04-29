@@ -1,4 +1,4 @@
-import { LIST_ADD } from '../constants';
+import { LIST_ADD, TASK_ADD } from '../constants';
 
 const MENU = [
     // {
@@ -29,6 +29,25 @@ const lists = (state = MENU, { type, payload }) => {
                 descr: ''
             };
             return [...state, newList];
+        case TASK_ADD:
+            return [...state].map(list => {
+                const { id, name, idList } = payload;
+                if (list.id === idList) {
+                    return {
+                        ...list,
+                        tasks: [
+                            ...list.tasks,
+                            {
+                                id: id,
+                                text: name,
+                                isCompleted: false
+                            }
+                        ]
+                    };
+                }
+
+                return list;
+            });
         default:
             return state;
     }
