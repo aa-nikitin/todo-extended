@@ -1,22 +1,6 @@
-import { LIST_ADD, TASK_ADD } from '../constants';
+import { LIST_ADD, TASK_ADD, TASK_COMPLETE } from '../constants';
 
-const MENU = [
-    // {
-    //     id: 2,
-    //     name: 'asd1',
-    //     tasks: [{ id: 1, text: '1111', isCompleted: false }]
-    // },
-    // {
-    //     id: 32,
-    //     name: 'asdasfasf2v',
-    //     tasks: [
-    //         { id: 1, text: 'asdasd', isCompleted: false },
-    //         { id: 2, text: 'sdfvx', isCompleted: true },
-    //         { id: 3, text: 'xcvsd', isCompleted: false }
-    //     ]
-    // },
-    // { id: 235, name: 'fasfasf3asd', tasks: [] }
-];
+const MENU = [];
 
 const lists = (state = MENU, { type, payload }) => {
     switch (type) {
@@ -48,6 +32,30 @@ const lists = (state = MENU, { type, payload }) => {
 
                 return list;
             });
+        case TASK_COMPLETE:
+            return [...state].map(list => {
+                const { id, idList } = payload;
+                if (list.id === idList) {
+                    return {
+                        ...list,
+                        tasks: [...list.tasks].map(task => {
+                            if (task.id === id) {
+                                return {
+                                    ...task,
+                                    isCompleted: !task.isCompleted
+                                };
+                            }
+                            return task;
+                        })
+                    };
+                }
+
+                return list;
+            });
+
+        // console.log(payload);
+
+        // return state;
         default:
             return state;
     }

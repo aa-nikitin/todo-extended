@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Menu from '../../components/menu';
 import ToDo from '../../components/todo';
-import { addList, activeMenu, addTask } from '../../actions';
+import { addList, activeMenu, addTask, completeTask } from '../../actions';
 
 import './style.css';
 
@@ -47,7 +47,7 @@ class Lists extends Component {
         return {};
     };
     render() {
-        const { lists, activeMenu, activeListId } = this.props;
+        const { lists, activeMenu, activeListId, completeTask } = this.props;
 
         const { listName, taskName } = this.state;
         const activeList = this.activeList(lists, activeListId);
@@ -68,6 +68,7 @@ class Lists extends Component {
                         activeListId={activeListId}
                         taskName={taskName}
                         tasksList={activeList.tasks}
+                        completeTask={completeTask}
                         onChangeTask={this.handleChangeTask}
                     />
                 )}
@@ -86,5 +87,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { addList, activeMenu, addTask }
+    { addList, activeMenu, addTask, completeTask }
 )(Lists);
