@@ -5,7 +5,7 @@ import './style.css';
 const TodoItem = ({ text, isCompleted, completeTask, id, activeListId }) => {
     return (
         <li className="todo-item">
-            <span className="todo-item__left">
+            <span className={`todo-item__left ${isCompleted ? 'active' : ''}`}>
                 <i
                     className={`far todo-item__check
                         ${isCompleted ? 'fa-check-circle' : 'fa-circle'}
@@ -14,7 +14,7 @@ const TodoItem = ({ text, isCompleted, completeTask, id, activeListId }) => {
                 />
                 <span
                     onClick={() => completeTask(id, activeListId)}
-                    className="todo-item__name"
+                    className={`todo-item__name`}
                 >
                     {text}
                 </span>

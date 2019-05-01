@@ -1,4 +1,8 @@
-.list-wrapper {
-    max-width: 1170px;
-    margin: 0 auto;
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px rgb(54, 160, 247, 0.5);
+    border-right: solid 1px rgb(54, 160, 247, 0.5);
+    margin-bottom: 40px;
 }

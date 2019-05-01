@@ -1,0 +1,25 @@
+.add-todo {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+.add-todo__button {
+    cursor: pointer;
+    font-size: 28px;
+    margin: 0px 15px;
+    color: rgb(54, 160, 247, 0.5);
+    transition-property: all;
+    transition-duration: 0.5s;
+}
+.add-todo__button:hover {
+    color: rgb(54, 160, 247);
+}
+
+.add-todo__field {
+    padding: 5px 20px;
+    font-family: 'Andika', sans-serif;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid rgb(54, 160, 247, 0.5);
+    outline: none;
+}
