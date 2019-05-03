@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
 const FILTERS = [
@@ -7,10 +8,10 @@ const FILTERS = [
     { id: 'complete', name: 'Выполненные' }
 ];
 
-const Footer = ({ activeFilter }) => {
+const Footer = ({ activeFilter, total, changeFilter }) => {
     return (
         <div className="footer">
-            <div className="footer__left">0 задач</div>
+            <div className="footer__left">Задач: {total}</div>
             <div className="footer__right">
                 {FILTERS.map(({ id, name }) => {
                     return (
@@ -19,6 +20,7 @@ const Footer = ({ activeFilter }) => {
                                 activeFilter === id ? 'active' : ''
                             }`}
                             key={id}
+                            onClick={() => changeFilter(id)}
                         >
                             {name}
                         </button>
@@ -27,6 +29,17 @@ const Footer = ({ activeFilter }) => {
             </div>
         </div>
     );
+};
+
+Footer.propTypes = {
+    activeFilter: PropTypes.string,
+    total: PropTypes.number,
+    changeFilter: PropTypes.func
+};
+Footer.defaultProps = {
+    activeFilter: '',
+    total: 0,
+    changeFilter: () => {}
 };
 
 export default Footer;

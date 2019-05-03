@@ -3,7 +3,8 @@ import {
     MENU_ACTIVE,
     TASK_ADD,
     TASK_COMPLETE,
-    TASK_DEL
+    TASK_DEL,
+    FILTER_ACTIVE
 } from '../constants';
 
 export const addList = (id, name) => ({
@@ -28,5 +29,10 @@ export const completeTask = (id, idList) => ({
 
 export const activeMenu = id => ({
     type: MENU_ACTIVE,
+    payload: id
+});
+
+export const changeFilter = id => ({
+    type: FILTER_ACTIVE,
     payload: id
 });

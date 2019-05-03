@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ToDoList from '../../components/todo-list';
 import Footer from '../../components/footer';
 import TodoInput from '../../components/todo-input';
-import { addTask, completeTask, delTask } from '../../actions';
+import { addTask, completeTask, delTask, changeFilter } from '../../actions';
 
 import './style.css';
 
@@ -12,6 +12,7 @@ class ToDo extends Component {
     state = {
         taskName: ''
     };
+
     addTask = ({ key }) => {
         const { taskName } = this.state;
         const { addTask, activeListId } = this.props;
@@ -21,9 +22,11 @@ class ToDo extends Component {
             this.setState({ taskName: '' });
         }
     };
+
     handleChangeTask = ({ target: { value } }) => {
         this.setState({ taskName: value });
     };
+
     activeList = (lists, id) => {
         const activeList = lists.filter(list => list.id === id)[0];
         if (activeList) {
@@ -31,12 +34,38 @@ class ToDo extends Component {
         } else if (lists[0]) {
             return lists[lists.length - 1];
         }
-        return {};
+        return { tasks: [] };
     };
+
+    getTotalActiveTasks = tasks => {
+        return tasks.filter(task => !task.isCompleted).length;
+    };
+
+    filterTasks = (tasks, activeFilter) => {
+        switch (activeFilter) {
+            case 'active':
+                return tasks.filter(task => !task.isCompleted);
+            case 'complete':
+                return tasks.filter(task => task.isCompleted);
+            default:
+                return tasks;
+        }
+    };
+
     render() {
-        const { lists, activeListId, completeTask, delTask } = this.props;
+        const {
+            lists,
+            activeListId,
+            completeTask,
+            delTask,
+            activeFilter,
+            changeFilter
+        } = this.props;
 
         const activeList = this.activeList(lists, activeListId);
+        const totalActiveTaskes = this.getTotalActiveTasks(activeList.tasks);
+        const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
+
         return (
             <Fragment>
                 {activeList.id && (
@@ -48,11 +77,15 @@ class ToDo extends Component {
                         />
                         <ToDoList
                             activeListId={activeListId}
-                            tasksList={activeList.tasks}
+                            tasksList={filteredTasks}
                             completeTask={completeTask}
                             delTask={delTask}
                         />
-                        <Footer activeFilter={'all'} />
+                        <Footer
+                            total={totalActiveTaskes}
+                            activeFilter={activeFilter}
+                            changeFilter={changeFilter}
+                        />
                     </div>
                 )}
             </Fragment>
@@ -60,14 +93,13 @@ class ToDo extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        lists: state.lists,
-        activeListId: state.activeList
-    };
-};
+const mapStateToProps = ({ lists, activeList, activeFilter }) => ({
+    lists,
+    activeListId: activeList,
+    activeFilter
+});
 
 export default connect(
     mapStateToProps,
-    { addTask, completeTask, delTask }
+    { addTask, completeTask, delTask, changeFilter }
 )(ToDo);
