@@ -1,11 +1,11 @@
-import { LIST_ADD, TASK_ADD, TASK_COMPLETE } from '../constants';
+import { LIST_ADD, TASK_ADD, TASK_COMPLETE, TASK_DEL } from '../constants';
 
 const MENU = [];
 
-const lists = (state = MENU, { type, payload }) => {
+const lists = (state = MENU, { type, payload = {} }) => {
+    const { id, name, idList } = payload;
     switch (type) {
         case LIST_ADD:
-            const { id, name } = payload;
             const newList = {
                 id,
                 name,
@@ -15,7 +15,6 @@ const lists = (state = MENU, { type, payload }) => {
             return [...state, newList];
         case TASK_ADD:
             return [...state].map(list => {
-                const { id, name, idList } = payload;
                 if (list.id === idList) {
                     return {
                         ...list,
@@ -34,7 +33,6 @@ const lists = (state = MENU, { type, payload }) => {
             });
         case TASK_COMPLETE:
             return [...state].map(list => {
-                const { id, idList } = payload;
                 if (list.id === idList) {
                     return {
                         ...list,
@@ -53,9 +51,16 @@ const lists = (state = MENU, { type, payload }) => {
                 return list;
             });
 
-        // console.log(payload);
-
-        // return state;
+        case TASK_DEL:
+            return [...state].map(list => {
+                if (list.id === idList) {
+                    return {
+                        ...list,
+                        tasks: [...list.tasks].filter(task => task.id !== id)
+                    };
+                }
+                return list;
+            });
         default:
             return state;
     }

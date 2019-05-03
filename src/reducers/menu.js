@@ -2,7 +2,7 @@ import { MENU_ACTIVE } from '../constants';
 
 const ACTIVE_MENU = 0;
 
-const activeMenu = (state = ACTIVE_MENU, { type, payload }) => {
+const activeMenu = (state = ACTIVE_MENU, { type, payload = {} }) => {
     switch (type) {
         case MENU_ACTIVE:
             return payload;

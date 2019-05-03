@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ToDoList from '../../components/todo-list';
 import Footer from '../../components/footer';
 import TodoInput from '../../components/todo-input';
-import { addTask, completeTask } from '../../actions';
+import { addTask, completeTask, delTask } from '../../actions';
 
 import './style.css';
 
@@ -34,7 +34,7 @@ class ToDo extends Component {
         return {};
     };
     render() {
-        const { lists, activeListId, completeTask } = this.props;
+        const { lists, activeListId, completeTask, delTask } = this.props;
 
         const activeList = this.activeList(lists, activeListId);
         return (
@@ -50,6 +50,7 @@ class ToDo extends Component {
                             activeListId={activeListId}
                             tasksList={activeList.tasks}
                             completeTask={completeTask}
+                            delTask={delTask}
                         />
                         <Footer activeFilter={'all'} />
                     </div>
@@ -68,5 +69,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { addTask, completeTask }
+    { addTask, completeTask, delTask }
 )(ToDo);

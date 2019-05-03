@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const TodoItem = ({ text, isCompleted, completeTask, id, activeListId }) => {
+const TodoItem = ({
+    text,
+    isCompleted,
+    completeTask,
+    id,
+    activeListId,
+    delTask
+}) => {
     return (
         <li className="todo-item">
             <span className={`todo-item__left ${isCompleted ? 'active' : ''}`}>
@@ -24,7 +31,10 @@ const TodoItem = ({ text, isCompleted, completeTask, id, activeListId }) => {
                     <i className="fas fa-caret-square-up todo-item__square-up" />
                     <i className="fas fa-caret-square-down todo-item__square-down" />
                 </span>
-                <i className="far fa-times-circle todo-item__del" />
+                <i
+                    onClick={() => delTask(id, activeListId)}
+                    className="far fa-times-circle todo-item__del"
+                />
             </span>
         </li>
     );
@@ -35,14 +45,16 @@ TodoItem.propTypes = {
     id: PropTypes.number,
     isCompleted: PropTypes.bool,
     completeTask: PropTypes.func,
-    activeListId: PropTypes.number
+    activeListId: PropTypes.number,
+    delTask: PropTypes.func
 };
 TodoItem.defaultProps = {
     text: '',
     id: 0,
     isCompleted: false,
     completeTask: () => {},
-    activeListId: 0
+    activeListId: 0,
+    delTask: () => {}
 };
 
 export default TodoItem;

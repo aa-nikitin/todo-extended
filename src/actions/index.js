@@ -1,4 +1,10 @@
-import { LIST_ADD, MENU_ACTIVE, TASK_ADD, TASK_COMPLETE } from '../constants';
+import {
+    LIST_ADD,
+    MENU_ACTIVE,
+    TASK_ADD,
+    TASK_COMPLETE,
+    TASK_DEL
+} from '../constants';
 
 export const addList = (id, name) => ({
     type: LIST_ADD,
@@ -8,6 +14,11 @@ export const addList = (id, name) => ({
 export const addTask = (id, name, idList) => ({
     type: TASK_ADD,
     payload: { id, name, idList }
+});
+
+export const delTask = (id, idList) => ({
+    type: TASK_DEL,
+    payload: { id, idList }
 });
 
 export const completeTask = (id, idList) => ({
