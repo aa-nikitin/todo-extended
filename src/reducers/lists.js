@@ -1,8 +1,17 @@
-import { LIST_ADD, TASK_ADD, TASK_COMPLETE, TASK_DEL } from '../constants';
+import {
+    LIST_ADD,
+    TASK_ADD,
+    TASK_COMPLETE,
+    TASK_DEL,
+    TODO_LIST
+} from '../constants';
 
-const MENU = [];
+let LISTS = TODO_LIST.lists;
+if (!LISTS || !LISTS.length) {
+    LISTS = [];
+}
 
-const lists = (state = MENU, { type, payload = {} }) => {
+const lists = (state = LISTS, { type, payload = {} }) => {
     const { id, name, idList } = payload;
     switch (type) {
         case LIST_ADD:

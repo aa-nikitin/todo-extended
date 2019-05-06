@@ -1,6 +1,9 @@
-import { FILTER_ACTIVE } from '../constants';
+import { FILTER_ACTIVE, TODO_LIST } from '../constants';
 
-const ACTIVE_FILTER = 'all';
+let ACTIVE_FILTER = TODO_LIST.activeFilter;
+if (!ACTIVE_FILTER) {
+    ACTIVE_FILTER = 'all';
+}
 
 const activeFilter = (state = ACTIVE_FILTER, { type, payload = {} }) => {
     switch (type) {

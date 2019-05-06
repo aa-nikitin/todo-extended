@@ -1,6 +1,9 @@
-import { MENU_ACTIVE } from '../constants';
+import { MENU_ACTIVE, TODO_LIST } from '../constants';
 
-const ACTIVE_MENU = 0;
+let ACTIVE_MENU = TODO_LIST.activeList;
+if (!ACTIVE_MENU) {
+    ACTIVE_MENU = 0;
+}
 
 const activeMenu = (state = ACTIVE_MENU, { type, payload = {} }) => {
     switch (type) {
