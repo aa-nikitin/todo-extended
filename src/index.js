@@ -5,10 +5,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store.js';
 import { Provider } from 'react-redux';
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <DragDropContextProvider backend={HTML5Backend}>
+            <App />
+        </DragDropContextProvider>
     </Provider>,
     document.getElementById('root')
 );

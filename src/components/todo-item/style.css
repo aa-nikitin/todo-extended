@@ -2,10 +2,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 0px;
+    padding: 10px 0px;
     border-bottom: 1px dashed rgb(226, 225, 225);
     transition-property: all;
     transition-duration: 0.5s;
+    cursor: grab;
 }
 
 .todo-item:hover {

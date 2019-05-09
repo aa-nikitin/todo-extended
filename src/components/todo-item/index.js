@@ -1,44 +1,65 @@
-import React from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { DragSource, DropTarget } from 'react-dnd';
 import './style.css';
 
-const TodoItem = ({
-    text,
-    isCompleted,
-    completeTask,
-    id,
-    activeListId,
-    delTask
-}) => {
-    return (
-        <li className="todo-item">
-            <span className={`todo-item__left ${isCompleted ? 'active' : ''}`}>
-                <i
-                    className={`far todo-item__check
-                        ${isCompleted ? 'fa-check-circle' : 'fa-circle'}
-                    `}
-                    onClick={() => completeTask(id, activeListId)}
-                />
+const TodoItem = React.forwardRef(
+    (
+        {
+            text,
+            isCompleted,
+            completeTask,
+            id,
+            activeListId,
+            delTask,
+            isDragging,
+            connectDragSource,
+            connectDropTarget
+        },
+        ref
+    ) => {
+        const elementRef = useRef(null);
+        connectDragSource(elementRef);
+        connectDropTarget(elementRef);
+        const opacity = isDragging ? 0 : 1;
+        useImperativeHandle(ref, () => ({
+            getNode: () => elementRef.current
+        }));
+        return (
+            <li
+                className="todo-item"
+                ref={elementRef}
+                style={Object.assign({}, { opacity })}
+                onTouchMove={() => {
+                    console.log('as');
+                }}
+            >
                 <span
-                    onClick={() => completeTask(id, activeListId)}
-                    className={`todo-item__name`}
+                    className={`todo-item__left ${isCompleted ? 'active' : ''}`}
                 >
-                    {text}
+                    <i
+                        className={`far todo-item__check
+                            ${isCompleted ? 'fa-check-circle' : 'fa-circle'}
+                        `}
+                        onClick={() => completeTask(id, activeListId)}
+                    />
+                    <span
+                        onClick={() => completeTask(id, activeListId)}
+                        className={`todo-item__name`}
+                    >
+                        {text}
+                    </span>
                 </span>
-            </span>
-            <span className="todo-item__right">
-                <span className="todo-item__squares">
-                    <i className="fas fa-caret-square-up todo-item__square-up" />
-                    <i className="fas fa-caret-square-down todo-item__square-down" />
+                <span className="todo-item__right">
+                    <i
+                        onClick={() => delTask(id, activeListId)}
+                        className="far fa-times-circle todo-item__del"
+                    />
                 </span>
-                <i
-                    onClick={() => delTask(id, activeListId)}
-                    className="far fa-times-circle todo-item__del"
-                />
-            </span>
-        </li>
-    );
-};
+            </li>
+        );
+    }
+);
 
 TodoItem.propTypes = {
     text: PropTypes.string,
@@ -57,4 +78,53 @@ TodoItem.defaultProps = {
     delTask: () => {}
 };
 
-export default TodoItem;
+export default DropTarget(
+    'TodoItem',
+    {
+        hover(props, monitor, component) {
+            if (!component) {
+                return null;
+            }
+            const node = component.getNode();
+            if (!node) {
+                return null;
+            }
+
+            const dragIndex = monitor.getItem().index;
+            const hoverIndex = props.index;
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+            const hoverBoundingRect = node.getBoundingClientRect();
+            const hoverMiddleY =
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+            props.moveCard(dragIndex, hoverIndex);
+            monitor.getItem().index = hoverIndex;
+        }
+    },
+    connect => ({
+        connectDropTarget: connect.dropTarget()
+    })
+)(
+    DragSource(
+        'TodoItem',
+        {
+            beginDrag: props => ({
+                id: props.id,
+                index: props.index
+            })
+        },
+        (connect, monitor) => ({
+            connectDragSource: connect.dragSource(),
+            isDragging: monitor.isDragging()
+        })
+    )(TodoItem)
+);

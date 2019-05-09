@@ -3,6 +3,7 @@ import {
     TASK_ADD,
     TASK_COMPLETE,
     TASK_DEL,
+    TASK_SORT,
     TODO_LIST
 } from '../constants';
 
@@ -22,6 +23,7 @@ const lists = (state = LISTS, { type, payload = {} }) => {
                 descr: ''
             };
             return [...state, newList];
+
         case TASK_ADD:
             return [...state].map(list => {
                 if (list.id === idList) {
@@ -37,9 +39,9 @@ const lists = (state = LISTS, { type, payload = {} }) => {
                         ]
                     };
                 }
-
                 return list;
             });
+
         case TASK_COMPLETE:
             return [...state].map(list => {
                 if (list.id === idList) {
@@ -70,6 +72,27 @@ const lists = (state = LISTS, { type, payload = {} }) => {
                 }
                 return list;
             });
+
+        case TASK_SORT:
+            const { moveTask, replaceTask } = payload;
+            return [...state].map(list => {
+                if (list.id === idList) {
+                    return {
+                        ...list,
+                        tasks: [...list.tasks].map(task => {
+                            if (task.id === moveTask.id) {
+                                return { ...replaceTask };
+                            }
+                            if (task.id === replaceTask.id) {
+                                return { ...moveTask };
+                            }
+                            return task;
+                        })
+                    };
+                }
+                return list;
+            });
+
         default:
             return state;
     }

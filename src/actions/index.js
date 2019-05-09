@@ -4,7 +4,8 @@ import {
     TASK_ADD,
     TASK_COMPLETE,
     TASK_DEL,
-    FILTER_ACTIVE
+    FILTER_ACTIVE,
+    TASK_SORT
 } from '../constants';
 
 export const addList = (id, name) => ({
@@ -35,4 +36,9 @@ export const activeMenu = id => ({
 export const changeFilter = id => ({
     type: FILTER_ACTIVE,
     payload: id
+});
+
+export const sortTask = (moveTask, replaceTask, idList) => ({
+    type: TASK_SORT,
+    payload: { moveTask, replaceTask, idList }
 });

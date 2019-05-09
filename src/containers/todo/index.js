@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import ToDoList from '../../components/todo-list';
 import Footer from '../../components/footer';
 import TodoInput from '../../components/todo-input';
-import { addTask, completeTask, delTask, changeFilter } from '../../actions';
+import {
+    addTask,
+    completeTask,
+    delTask,
+    changeFilter,
+    sortTask
+} from '../../actions';
 
 import './style.css';
 
@@ -52,6 +58,29 @@ class ToDo extends Component {
         }
     };
 
+    moveCard = (dragIndex, hoverIndex) => {
+        const { lists, activeListId, activeFilter, sortTask } = this.props;
+
+        const activeList = this.activeList(lists, activeListId);
+        const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
+        // console.log(
+        //     filteredTasks[dragIndex],
+        //     filteredTasks[hoverIndex],
+        //     activeListId
+        // );
+        sortTask(
+            filteredTasks[dragIndex],
+            filteredTasks[hoverIndex],
+            activeListId
+        );
+        // const dragCard = cards[dragIndex];
+        // setCards(
+        //     update(cards, {
+        //         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+        //     })
+        // );
+    };
+
     render() {
         const {
             lists,
@@ -80,6 +109,7 @@ class ToDo extends Component {
                             tasksList={filteredTasks}
                             completeTask={completeTask}
                             delTask={delTask}
+                            moveCard={this.moveCard}
                         />
                         <Footer
                             total={totalActiveTaskes}
@@ -101,5 +131,5 @@ const mapStateToProps = ({ lists, activeList, activeFilter }) => ({
 
 export default connect(
     mapStateToProps,
-    { addTask, completeTask, delTask, changeFilter }
+    { addTask, completeTask, delTask, changeFilter, sortTask }
 )(ToDo);

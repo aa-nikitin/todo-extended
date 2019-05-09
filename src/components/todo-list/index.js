@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import './style.css';
 import TodoItem from '../todo-item';
 
-const ToDoList = ({ tasksList, completeTask, activeListId, delTask }) => {
+const ToDoList = ({
+    tasksList,
+    completeTask,
+    activeListId,
+    delTask,
+    moveCard
+}) => {
     return (
         <ul className="todo-list">
-            {tasksList.map(({ id, text, isCompleted }) => (
+            {tasksList.map(({ id, text, isCompleted }, i) => (
                 <TodoItem
                     key={id}
                     text={text}
@@ -15,6 +21,8 @@ const ToDoList = ({ tasksList, completeTask, activeListId, delTask }) => {
                     completeTask={completeTask}
                     activeListId={activeListId}
                     delTask={delTask}
+                    index={i}
+                    moveCard={moveCard}
                 />
             ))}
         </ul>
