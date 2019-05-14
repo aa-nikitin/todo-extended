@@ -4,7 +4,8 @@ import {
     TASK_COMPLETE,
     TASK_DEL,
     TASK_SORT,
-    TODO_LIST
+    TODO_LIST,
+    LIST_DEL
 } from '../constants';
 
 let LISTS = TODO_LIST.lists;
@@ -92,6 +93,9 @@ const lists = (state = LISTS, { type, payload = {} }) => {
                 }
                 return list;
             });
+
+        case LIST_DEL:
+            return [...state].filter(list => list.id !== idList);
 
         default:
             return state;
