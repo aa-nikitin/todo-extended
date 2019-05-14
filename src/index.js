@@ -6,11 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import store from './store.js';
 import { Provider } from 'react-redux';
 import { DragDropContextProvider } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import TouchBackend from 'react-dnd-touch-backend';
 
 ReactDOM.render(
     <Provider store={store}>
-        <DragDropContextProvider backend={HTML5Backend}>
+        <DragDropContextProvider
+            backend={TouchBackend({ enableMouseEvents: true })}
+        >
             <App />
         </DragDropContextProvider>
     </Provider>,

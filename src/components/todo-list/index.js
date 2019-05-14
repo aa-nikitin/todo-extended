@@ -8,7 +8,7 @@ const ToDoList = ({
     completeTask,
     activeListId,
     delTask,
-    moveCard
+    moveTask
 }) => {
     return (
         <ul className="todo-list">
@@ -22,7 +22,7 @@ const ToDoList = ({
                     activeListId={activeListId}
                     delTask={delTask}
                     index={i}
-                    moveCard={moveCard}
+                    moveTask={moveTask}
                 />
             ))}
         </ul>
@@ -33,13 +33,15 @@ ToDoList.propTypes = {
     tasksList: PropTypes.array,
     completeTask: PropTypes.func,
     activeListId: PropTypes.number,
-    delTask: PropTypes.func
+    delTask: PropTypes.func,
+    moveTask: PropTypes.func
 };
 ToDoList.defaultProps = {
     tasksList: [],
     completeTask: () => {},
     activeListId: 0,
-    delTask: () => {}
+    delTask: () => {},
+    moveTask: () => {}
 };
 
 export default ToDoList;

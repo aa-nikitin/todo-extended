@@ -58,27 +58,16 @@ class ToDo extends Component {
         }
     };
 
-    moveCard = (dragIndex, hoverIndex) => {
+    moveTask = (dragIndex, hoverIndex) => {
         const { lists, activeListId, activeFilter, sortTask } = this.props;
-
         const activeList = this.activeList(lists, activeListId);
         const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
-        // console.log(
-        //     filteredTasks[dragIndex],
-        //     filteredTasks[hoverIndex],
-        //     activeListId
-        // );
+
         sortTask(
             filteredTasks[dragIndex],
             filteredTasks[hoverIndex],
             activeListId
         );
-        // const dragCard = cards[dragIndex];
-        // setCards(
-        //     update(cards, {
-        //         $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
-        //     })
-        // );
     };
 
     render() {
@@ -109,7 +98,7 @@ class ToDo extends Component {
                             tasksList={filteredTasks}
                             completeTask={completeTask}
                             delTask={delTask}
-                            moveCard={this.moveCard}
+                            moveTask={this.moveTask}
                         />
                         <Footer
                             total={totalActiveTaskes}
