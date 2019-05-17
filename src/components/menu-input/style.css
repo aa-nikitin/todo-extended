@@ -1,25 +1,30 @@
 .add-todo {
-    display: flex;
     align-items: center;
-    margin-left: 15px;
+    background: #fff;
+    position: relative;
 }
 .add-todo__button {
     cursor: pointer;
     font-size: 28px;
     margin: 0px 15px;
-    color: rgb(54, 160, 247, 0.5);
+    color: #ccc;
     transition-property: all;
     transition-duration: 0.5s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -5px;
 }
 .add-todo__button:hover {
     color: rgb(54, 160, 247);
 }
 
 .add-todo__field {
-    padding: 5px 20px;
+    padding: 12px 20px;
     font-family: 'Andika', sans-serif;
     font-size: 14px;
     border: none;
-    border-bottom: 1px solid rgb(54, 160, 247, 0.5);
     outline: none;
+    width: 100%;
+    box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
 }

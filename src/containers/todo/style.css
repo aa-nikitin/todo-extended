@@ -1,6 +1,47 @@
 .todo-wrapper {
-    max-width: 600px;
-    margin: 0 auto;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 70%;
+    /* max-height: 70vh; */
+    overflow-y: auto;
     background-color: #fff;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.todo {
+    max-width: 60%;
+    margin: 0 auto;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 1400px) {
+    .todo-wrapper {
+        width: 60%;
+    }
+    .todo {
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .todo-wrapper {
+        width: 100%;
+    }
+    .todo {
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .todo-wrapper {
+        padding-top: 0px;
+        padding-bottom: 40px;
+    }
+    .todo {
+        max-width: 90%;
+        margin: 0;
+    }
 }

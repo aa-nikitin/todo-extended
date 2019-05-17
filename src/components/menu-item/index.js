@@ -2,13 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const MenuItem = ({ nameMenuItem, activeMenu, id, activeClass }) => {
+const MenuItem = ({ nameMenuItem, activeMenu, id, activeClass, delList }) => {
     return (
-        <li
-            onClick={() => activeMenu(id)}
-            className={`menu-item ${activeClass}`}
-        >
-            {nameMenuItem}
+        <li className={`menu-item ${activeClass}`}>
+            <span onClick={() => activeMenu(id)} className="menu-item__name">
+                {nameMenuItem}
+            </span>
+            <span className="menu-item__options">
+                <i className="fas fa-pen-square menu-item__button" />
+                <i
+                    onClick={() => delList(id)}
+                    className="fas fa-minus-square menu-item__button"
+                />
+            </span>
         </li>
     );
 };

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ToDoList from '../../components/todo-list';
@@ -85,9 +85,9 @@ class ToDo extends Component {
         const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
 
         return (
-            <Fragment>
-                {activeList.id && (
-                    <div className="todo-wrapper">
+            activeList.id && (
+                <div className="todo-wrapper">
+                    <div className="todo">
                         <TodoInput
                             taskName={this.state.taskName}
                             addTask={this.addTask}
@@ -106,8 +106,8 @@ class ToDo extends Component {
                             changeFilter={changeFilter}
                         />
                     </div>
-                )}
-            </Fragment>
+                </div>
+            )
         );
     }
 }

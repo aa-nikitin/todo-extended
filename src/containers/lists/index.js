@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import Menu from '../../components/menu';
@@ -9,7 +9,8 @@ import './style.css';
 
 class Lists extends Component {
     state = {
-        listName: ''
+        listName: '',
+        showMenu: false
     };
     handleChangeList = ({ target: { value } }) => {
         this.setState({ listName: value });
@@ -36,6 +37,7 @@ class Lists extends Component {
             activeMenu(lastList.id);
             return lastList;
         }
+
         return {};
     };
 
@@ -45,25 +47,40 @@ class Lists extends Component {
         delList(listId);
     };
 
+    changeShowMenu = () => {
+        const { showMenu } = this.state;
+        this.setState({ showMenu: !showMenu });
+    };
+
     render() {
         const { lists, activeMenu, activeListId } = this.props;
-        const { listName } = this.state;
+        const { listName, showMenu } = this.state;
         const activeList = this.activeList(lists, activeListId);
+        const classShowMenu = showMenu ? 'active' : '';
 
         return (
-            <div className="header">
-                <Menu
-                    menuList={lists}
-                    activeMenu={activeMenu}
-                    idActiveMenu={activeList.id}
-                />
-                <MenuInput
-                    onChange={this.handleChangeList}
-                    listName={listName}
-                    addList={this.addList}
-                />
-                <button onClick={() => this.delList(activeListId)}>del</button>
-            </div>
+            <Fragment>
+                <div className={`header ${classShowMenu}`}>
+                    <MenuInput
+                        onChange={this.handleChangeList}
+                        listName={listName}
+                        addList={this.addList}
+                    />
+                    <Menu
+                        menuList={lists}
+                        activeMenu={activeMenu}
+                        idActiveMenu={activeList.id}
+                        delList={this.delList}
+                        classShowMenu={classShowMenu}
+                    />
+                </div>
+                <div
+                    onClick={this.changeShowMenu}
+                    className={`mobile-menu ${classShowMenu}`}
+                >
+                    <div className="mobile-menu__icon" />
+                </div>
+            </Fragment>
         );
     }
 }

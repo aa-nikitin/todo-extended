@@ -1,5 +1,6 @@
 .todo-input {
-    border-bottom: 1px dashed rgb(54, 160, 247);
+    /* border-bottom: 1px dashed rgb(54, 160, 247); */
+
     position: relative;
 }
 .todo-input__field {
@@ -10,6 +11,9 @@
     font-size: 16px;
     border: none;
     outline: none;
+    box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.1);
+    background: rgb(54, 160, 247);
+    color: #fff;
 }
 
 .todo-input__add {
@@ -18,11 +22,30 @@
     right: 15px;
     transform: translateY(-50%);
     font-size: 25px;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.5);
     transition-property: all;
     transition-duration: 0.5s;
     cursor: pointer;
 }
 .todo-input__add:hover {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.todo-input__field::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.todo-input__field:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.todo-input__field::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.todo-input__field:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.todo-input__field::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.todo-input__field::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
