@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Menu from '../../components/menu';
 import MenuInput from '../../components/menu-input';
-import { addList, activeMenu, delList } from '../../actions';
+import { addList, activeMenu, delList, activeListForEdit } from '../../actions';
 
 import './style.css';
 
@@ -53,7 +53,12 @@ class Lists extends Component {
     };
 
     render() {
-        const { lists, activeMenu, activeListId } = this.props;
+        const {
+            lists,
+            activeMenu,
+            activeListId,
+            activeListForEdit
+        } = this.props;
         const { listName, showMenu } = this.state;
         const activeList = this.activeList(lists, activeListId);
         const classShowMenu = showMenu ? 'active' : '';
@@ -72,6 +77,7 @@ class Lists extends Component {
                         idActiveMenu={activeList.id}
                         delList={this.delList}
                         classShowMenu={classShowMenu}
+                        activeListForEdit={activeListForEdit}
                     />
                 </div>
                 <div
@@ -94,5 +100,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { addList, activeMenu, delList }
+    { addList, activeMenu, delList, activeListForEdit }
 )(Lists);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Lists from './containers/lists';
 import ToDo from './containers/todo';
+import EditList from './containers/editList';
 
 class App extends Component {
     render() {
@@ -9,6 +10,7 @@ class App extends Component {
             <div className="app">
                 <Lists />
                 <ToDo />
+                <EditList />
             </div>
         );
     }

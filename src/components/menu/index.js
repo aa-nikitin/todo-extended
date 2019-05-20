@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import MenuItem from '../menu-item';
 import './style.css';
 
-const Menu = ({ menuList, activeMenu, idActiveMenu, delList }) => {
+const Menu = ({
+    menuList,
+    activeMenu,
+    idActiveMenu,
+    delList,
+    activeListForEdit
+}) => {
     return (
         <ul className="menu">
             {menuList.map(({ id, name }) => (
@@ -14,6 +20,7 @@ const Menu = ({ menuList, activeMenu, idActiveMenu, delList }) => {
                     id={id}
                     activeClass={idActiveMenu === id ? 'active' : ''}
                     delList={delList}
+                    activeListForEdit={activeListForEdit}
                 />
             ))}
         </ul>
@@ -24,14 +31,16 @@ Menu.propTypes = {
     menuList: PropTypes.array,
     activeMenu: PropTypes.func,
     idActiveMenu: PropTypes.number,
-    delList: PropTypes.func
+    delList: PropTypes.func,
+    activeListForEdit: PropTypes.func
 };
 
 Menu.defaultProps = {
     menuList: [],
     activeMenu: () => {},
     idActiveMenu: 0,
-    delList: () => {}
+    delList: () => {},
+    activeListForEdit: () => {}
 };
 
 export default Menu;
