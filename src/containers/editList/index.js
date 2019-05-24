@@ -1,76 +1,38 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { activeListForEdit } from '../../actions';
+import { activeListForEdit, editList } from '../../actions';
+import ModalListForm from '../../components/modal-list-form';
 import './style.css';
 
-class Modal extends Component {
-    el = document.createElement('div');
-
-    componentDidMount() {
-        if (this.props.children) {
-            document.body.appendChild(this.el);
-            this.el.id = 'pop-up';
-        }
-    }
-    componentWillUnmount() {
-        document.body.removeChild(this.el);
-    }
+class EditList extends Component {
+    activeList = () => {
+        const { editList, lists } = this.props;
+        const activeList = [...lists].filter(
+            element => element.id === editList
+        );
+        return activeList[0];
+    };
     render() {
-        return ReactDOM.createPortal(this.props.children, this.el);
+        const { editList, activeListForEdit, editListAction } = this.props;
+        return editList ? (
+            <ModalListForm
+                activeListForEdit={activeListForEdit}
+                editListAction={editListAction}
+                list={this.activeList()}
+                idList={editList}
+            />
+        ) : (
+            ''
+        );
     }
 }
 
-const editList = ({ editList, activeListForEdit }) => {
-    console.log(editList);
-    return editList ? (
-        <Modal>
-            {editList ? (
-                <div className="edit-list">
-                    <input
-                        className="edit-list__field"
-                        placeholder="Имя списка"
-                        // onChange={onChange}
-                        // value={listName}
-                        // onKeyPress={addList}
-                    />
-                    <input
-                        className="edit-list__field"
-                        placeholder="Путь к картинке"
-                        // onChange={onChange}
-                        // value={listName}
-                        // onKeyPress={addList}
-                    />
-                    <textarea
-                        className="edit-list__descr"
-                        placeholder="Описание"
-                    />
-                    <div className="edit-list__buttons">
-                        <button className="button edit-list__button">
-                            Сохранить
-                        </button>
-                        <button
-                            className="button edit-list__button"
-                            onClick={() => activeListForEdit(0)}
-                        >
-                            Закрыть
-                        </button>
-                    </div>
-                </div>
-            ) : (
-                ''
-            )}
-        </Modal>
-    ) : (
-        ''
-    );
-};
-
-const mapStateToProps = ({ editList }) => ({
+const mapStateToProps = ({ lists, editList }) => ({
+    lists,
     editList
 });
 
 export default connect(
     mapStateToProps,
-    { activeListForEdit }
-)(editList);
+    { activeListForEdit, editListAction: editList }
+)(EditList);

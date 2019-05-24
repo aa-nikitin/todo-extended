@@ -7,6 +7,7 @@ import {
     FILTER_ACTIVE,
     TASK_SORT,
     LIST_DEL,
+    ACTIVE_LIST_FOR_EDIT,
     LIST_EDIT
 } from '../constants';
 
@@ -51,6 +52,11 @@ export const delList = idList => ({
 });
 
 export const activeListForEdit = id => ({
-    type: LIST_EDIT,
+    type: ACTIVE_LIST_FOR_EDIT,
     payload: id
+});
+
+export const editList = (idList, { name, img, descr }) => ({
+    type: LIST_EDIT,
+    payload: { idList, name, img, descr }
 });

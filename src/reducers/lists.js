@@ -5,7 +5,8 @@ import {
     TASK_DEL,
     TASK_SORT,
     TODO_LIST,
-    LIST_DEL
+    LIST_DEL,
+    LIST_EDIT
 } from '../constants';
 
 let LISTS = TODO_LIST.lists;
@@ -14,13 +15,14 @@ if (!LISTS || !LISTS.length) {
 }
 
 const lists = (state = LISTS, { type, payload = {} }) => {
-    const { id, name, idList } = payload;
+    const { id, idList, name, img, descr } = payload;
     switch (type) {
         case LIST_ADD:
             const newList = {
                 id,
                 name,
                 tasks: [],
+                img: '',
                 descr: ''
             };
             return [...state, newList];
@@ -96,6 +98,14 @@ const lists = (state = LISTS, { type, payload = {} }) => {
 
         case LIST_DEL:
             return [...state].filter(list => list.id !== idList);
+
+        case LIST_EDIT:
+            return [...state].map(list => {
+                if (list.id === idList) {
+                    return { ...list, name, img, descr };
+                }
+                return list;
+            });
 
         default:
             return state;
