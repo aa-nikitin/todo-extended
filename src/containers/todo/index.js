@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ToDoList from '../../components/todo-list';
 import Footer from '../../components/footer';
 import TodoInput from '../../components/todo-input';
+import TodoDescr from '../../components/todo-descr';
 import {
     addTask,
     completeTask,
@@ -43,8 +44,15 @@ class ToDo extends Component {
         return { tasks: [] };
     };
 
-    getTotalActiveTasks = tasks => {
-        return tasks.filter(task => !task.isCompleted).length;
+    getTotalActiveTasks = (tasks, activeFilter) => {
+        switch (activeFilter) {
+            case 'active':
+                return tasks.filter(task => !task.isCompleted).length;
+            case 'complete':
+                return tasks.filter(task => task.isCompleted).length;
+            default:
+                return tasks.length;
+        }
     };
 
     filterTasks = (tasks, activeFilter) => {
@@ -81,30 +89,36 @@ class ToDo extends Component {
         } = this.props;
 
         const activeList = this.activeList(lists, activeListId);
-        const totalActiveTaskes = this.getTotalActiveTasks(activeList.tasks);
+        const totalActiveTaskes = this.getTotalActiveTasks(
+            activeList.tasks,
+            activeFilter
+        );
         const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
 
         return (
             activeList.id && (
                 <div className="todo-wrapper">
-                    <div className="todo">
-                        <TodoInput
-                            taskName={this.state.taskName}
-                            addTask={this.addTask}
-                            onChange={this.handleChangeTask}
-                        />
-                        <ToDoList
-                            activeListId={activeListId}
-                            tasksList={filteredTasks}
-                            completeTask={completeTask}
-                            delTask={delTask}
-                            moveTask={this.moveTask}
-                        />
-                        <Footer
-                            total={totalActiveTaskes}
-                            activeFilter={activeFilter}
-                            changeFilter={changeFilter}
-                        />
+                    <div className="todo-box">
+                        <div className="todo">
+                            <TodoInput
+                                taskName={this.state.taskName}
+                                addTask={this.addTask}
+                                onChange={this.handleChangeTask}
+                            />
+                            <ToDoList
+                                activeListId={activeListId}
+                                tasksList={filteredTasks}
+                                completeTask={completeTask}
+                                delTask={delTask}
+                                moveTask={this.moveTask}
+                            />
+                            <Footer
+                                total={totalActiveTaskes}
+                                activeFilter={activeFilter}
+                                changeFilter={changeFilter}
+                            />
+                        </div>
+                        <TodoDescr activeList={activeList} />
                     </div>
                 </div>
             )

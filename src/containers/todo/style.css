@@ -11,9 +11,12 @@
     padding-bottom: 40px;
 }
 
-.todo {
+.todo-box {
     max-width: 60%;
     margin: 0 auto;
+}
+
+.todo {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -21,7 +24,7 @@
     .todo-wrapper {
         width: 60%;
     }
-    .todo {
+    .todo-box {
         max-width: 80%;
     }
 }
@@ -30,7 +33,7 @@
     .todo-wrapper {
         width: 100%;
     }
-    .todo {
+    .todo-box {
         max-width: 80%;
     }
 }
@@ -40,8 +43,12 @@
         padding-top: 0px;
         padding-bottom: 40px;
     }
-    .todo {
+    .todo-box {
         max-width: 90%;
         margin: 0;
+    }
+
+    .todo-descr {
+        padding: 0px 15px;
     }
 }

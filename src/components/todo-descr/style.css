@@ -1,0 +1,13 @@
+.todo-descr {
+    margin-top: 40px;
+}
+
+.todo-descr__img {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .todo-descr {
+        padding: 0px 15px;
+    }
+}
