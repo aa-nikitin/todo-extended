@@ -10,7 +10,9 @@ import {
     completeTask,
     delTask,
     changeFilter,
-    sortTask
+    sortTask,
+    completeTaskAll,
+    deleteTasksAll
 } from '../../actions';
 
 import './style.css';
@@ -85,7 +87,9 @@ class ToDo extends Component {
             completeTask,
             delTask,
             activeFilter,
-            changeFilter
+            changeFilter,
+            completeTaskAll,
+            deleteTasksAll
         } = this.props;
 
         const activeList = this.activeList(lists, activeListId);
@@ -96,7 +100,7 @@ class ToDo extends Component {
         const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
 
         return (
-            activeList.id && (
+            activeListId && (
                 <div className="todo-wrapper">
                     <div className="todo-box">
                         <div className="todo">
@@ -116,6 +120,9 @@ class ToDo extends Component {
                                 total={totalActiveTaskes}
                                 activeFilter={activeFilter}
                                 changeFilter={changeFilter}
+                                completeTaskAll={completeTaskAll}
+                                activeListId={activeListId}
+                                deleteTasksAll={deleteTasksAll}
                             />
                         </div>
                         <TodoDescr activeList={activeList} />
@@ -134,5 +141,13 @@ const mapStateToProps = ({ lists, activeList, activeFilter }) => ({
 
 export default connect(
     mapStateToProps,
-    { addTask, completeTask, delTask, changeFilter, sortTask }
+    {
+        addTask,
+        completeTask,
+        delTask,
+        changeFilter,
+        sortTask,
+        completeTaskAll,
+        deleteTasksAll
+    }
 )(ToDo);

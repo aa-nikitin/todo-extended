@@ -8,7 +8,9 @@ import {
     TASK_SORT,
     LIST_DEL,
     ACTIVE_LIST_FOR_EDIT,
-    LIST_EDIT
+    LIST_EDIT,
+    TASK_COMPLETE_ALL,
+    TASKS_DELETE_ALL
 } from '../constants';
 
 export const addList = (id, name) => ({
@@ -29,6 +31,16 @@ export const delTask = (id, idList) => ({
 export const completeTask = (id, idList) => ({
     type: TASK_COMPLETE,
     payload: { id, idList }
+});
+
+export const completeTaskAll = (idList, flag) => ({
+    type: TASK_COMPLETE_ALL,
+    payload: { idList, flag }
+});
+
+export const deleteTasksAll = (idList, idFilter) => ({
+    type: TASKS_DELETE_ALL,
+    payload: { idList, idFilter }
 });
 
 export const activeMenu = id => ({

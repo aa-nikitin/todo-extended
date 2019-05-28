@@ -1,10 +1,21 @@
 .footer {
     min-height: 50px;
     position: relative;
+    padding: 0px 15px;
+}
+.footer__top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 15px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+.footer__bottom {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgb(235, 234, 234);
+    font-size: 12px;
+    font-size: 12px;
 }
 .footer__left {
     font-size: 12px;
@@ -21,10 +32,10 @@
     right: 0;
     bottom: 0;
     left: 0;
-    height: 50px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    height: 20px;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
         0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
-        0 17px 2px -6px rgba(0, 0, 0, 0.2);
+        0 17px 1px -6px rgba(0, 0, 0, 0.2);
 }
 
 .filter-button {
@@ -35,6 +46,12 @@
     border: 1px solid transparent;
     border-radius: 3px;
     margin-left: 5px;
+    transition-property: border-color;
+    transition-duration: 0.5s;
+}
+
+.filter-button:hover {
+    border: 1px solid rgba(168, 168, 168, 0.5);
 }
 
 .filter-button.active {

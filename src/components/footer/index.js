@@ -8,24 +8,54 @@ const FILTERS = [
     { id: 'complete', name: 'Выполненные' }
 ];
 
-const Footer = ({ activeFilter, total, changeFilter }) => {
+const Footer = ({
+    activeFilter,
+    total,
+    changeFilter,
+    completeTaskAll,
+    activeListId,
+    deleteTasksAll
+}) => {
     return (
         <div className="footer">
-            <div className="footer__left">Задач: {total}</div>
-            <div className="footer__right">
-                {FILTERS.map(({ id, name }) => {
-                    return (
-                        <button
-                            className={`filter-button ${
-                                activeFilter === id ? 'active' : ''
-                            }`}
-                            key={id}
-                            onClick={() => changeFilter(id)}
-                        >
-                            {name}
-                        </button>
-                    );
-                })}
+            <div className="footer__top">
+                <div className="footer__left">Задач: {total}</div>
+                <div className="footer__right">
+                    {FILTERS.map(({ id, name }) => {
+                        return (
+                            <button
+                                className={`filter-button ${
+                                    activeFilter === id ? 'active' : ''
+                                }`}
+                                key={id}
+                                onClick={() => changeFilter(id)}
+                            >
+                                {name}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+            <div className="footer__bottom">
+                <button
+                    onClick={() => completeTaskAll(activeListId, true)}
+                    className="filter-button"
+                >
+                    Выделить
+                </button>
+                <button
+                    className="filter-button"
+                    onClick={() => completeTaskAll(activeListId, false)}
+                >
+                    Сбросить
+                </button>
+                <button
+                    onClick={() => deleteTasksAll(activeListId, activeFilter)}
+                    className="filter-button"
+                >
+                    Копировать
+                </button>
+                <button className="filter-button">Удалить</button>
             </div>
         </div>
     );
@@ -34,12 +64,18 @@ const Footer = ({ activeFilter, total, changeFilter }) => {
 Footer.propTypes = {
     activeFilter: PropTypes.string,
     total: PropTypes.number,
-    changeFilter: PropTypes.func
+    activeListId: PropTypes.number,
+    changeFilter: PropTypes.func,
+    completeTaskAll: PropTypes.func,
+    deleteTasksAll: PropTypes.func
 };
 Footer.defaultProps = {
     activeFilter: '',
     total: 0,
-    changeFilter: () => {}
+    activeListId: 0,
+    changeFilter: () => {},
+    completeTaskAll: () => {},
+    deleteTasksAll: () => {}
 };
 
 export default Footer;
