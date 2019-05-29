@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import ToDoList from '../../components/todo-list';
 import Footer from '../../components/footer';
 import TodoInput from '../../components/todo-input';
 import TodoDescr from '../../components/todo-descr';
+import ModalLists from '../../components/modal-lists';
 import {
     addTask,
     completeTask,
@@ -19,7 +20,8 @@ import './style.css';
 
 class ToDo extends Component {
     state = {
-        taskName: ''
+        taskName: '',
+        showModal: false
     };
 
     addTask = ({ key }) => {
@@ -101,33 +103,38 @@ class ToDo extends Component {
 
         return (
             activeListId && (
-                <div className="todo-wrapper">
-                    <div className="todo-box">
-                        <div className="todo">
-                            <TodoInput
-                                taskName={this.state.taskName}
-                                addTask={this.addTask}
-                                onChange={this.handleChangeTask}
-                            />
-                            <ToDoList
-                                activeListId={activeListId}
-                                tasksList={filteredTasks}
-                                completeTask={completeTask}
-                                delTask={delTask}
-                                moveTask={this.moveTask}
-                            />
-                            <Footer
-                                total={totalActiveTaskes}
-                                activeFilter={activeFilter}
-                                changeFilter={changeFilter}
-                                completeTaskAll={completeTaskAll}
-                                activeListId={activeListId}
-                                deleteTasksAll={deleteTasksAll}
-                            />
+                <Fragment>
+                    <div className="todo-wrapper">
+                        <div className="todo-box">
+                            <div className="todo">
+                                <TodoInput
+                                    taskName={this.state.taskName}
+                                    addTask={this.addTask}
+                                    onChange={this.handleChangeTask}
+                                />
+                                <ToDoList
+                                    activeListId={activeListId}
+                                    tasksList={filteredTasks}
+                                    completeTask={completeTask}
+                                    delTask={delTask}
+                                    moveTask={this.moveTask}
+                                />
+                                <Footer
+                                    total={totalActiveTaskes}
+                                    activeFilter={activeFilter}
+                                    changeFilter={changeFilter}
+                                    completeTaskAll={completeTaskAll}
+                                    activeListId={activeListId}
+                                    deleteTasksAll={deleteTasksAll}
+                                />
+                            </div>
+                            <TodoDescr activeList={activeList} />
                         </div>
-                        <TodoDescr activeList={activeList} />
                     </div>
-                </div>
+                    {this.state.showModal && (
+                        <ModalLists>Модальное окно</ModalLists>
+                    )}
+                </Fragment>
             )
         );
     }

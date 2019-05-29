@@ -89,7 +89,16 @@ const lists = (state = LISTS, { type, payload = {} }) => {
                 if (list.id === idList) {
                     return {
                         ...list,
-                        tasks: [...list.tasks].filter(task => task.id !== id)
+                        tasks: [...list.tasks].filter(task => {
+                            switch (idFilter) {
+                                case 'active':
+                                    return task.isCompleted === true;
+                                case 'complete':
+                                    return task.isCompleted === false;
+                                default:
+                                    return false;
+                            }
+                        })
                     };
                 }
                 return list;

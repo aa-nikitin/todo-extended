@@ -49,13 +49,13 @@ const Footer = ({
                 >
                     Сбросить
                 </button>
+                <button className="filter-button">Копировать</button>
                 <button
                     onClick={() => deleteTasksAll(activeListId, activeFilter)}
                     className="filter-button"
                 >
-                    Копировать
+                    Удалить
                 </button>
-                <button className="filter-button">Удалить</button>
             </div>
         </div>
     );
