@@ -14,7 +14,8 @@ const Footer = ({
     changeFilter,
     completeTaskAll,
     activeListId,
-    deleteTasksAll
+    deleteTasksAll,
+    openModal
 }) => {
     return (
         <div className="footer">
@@ -49,7 +50,12 @@ const Footer = ({
                 >
                     Сбросить
                 </button>
-                <button className="filter-button">Копировать</button>
+                <button
+                    onClick={() => openModal(true)}
+                    className="filter-button"
+                >
+                    Копировать
+                </button>
                 <button
                     onClick={() => deleteTasksAll(activeListId, activeFilter)}
                     className="filter-button"
@@ -68,6 +74,7 @@ Footer.propTypes = {
     changeFilter: PropTypes.func,
     completeTaskAll: PropTypes.func,
     deleteTasksAll: PropTypes.func
+    // openModal: PropTypes.func
 };
 Footer.defaultProps = {
     activeFilter: '',
@@ -76,6 +83,7 @@ Footer.defaultProps = {
     changeFilter: () => {},
     completeTaskAll: () => {},
     deleteTasksAll: () => {}
+    // openModal: () => {}
 };
 
 export default Footer;

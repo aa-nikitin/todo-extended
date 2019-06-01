@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import './style.css';
+
 class ModalLists extends Component {
     el = document.createElement('div');
 

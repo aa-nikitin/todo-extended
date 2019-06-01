@@ -6,6 +6,7 @@ import Footer from '../../components/footer';
 import TodoInput from '../../components/todo-input';
 import TodoDescr from '../../components/todo-descr';
 import ModalLists from '../../components/modal-lists';
+import CopyTasks from '../../components/copy-tasks';
 import {
     addTask,
     completeTask,
@@ -13,7 +14,8 @@ import {
     changeFilter,
     sortTask,
     completeTaskAll,
-    deleteTasksAll
+    deleteTasksAll,
+    copyTasks
 } from '../../actions';
 
 import './style.css';
@@ -82,6 +84,10 @@ class ToDo extends Component {
         );
     };
 
+    openModal = show => {
+        this.setState({ showModal: show });
+    };
+
     render() {
         const {
             lists,
@@ -91,8 +97,11 @@ class ToDo extends Component {
             activeFilter,
             changeFilter,
             completeTaskAll,
-            deleteTasksAll
+            deleteTasksAll,
+            copyTasks
         } = this.props;
+
+        const { showModal } = this.state;
 
         const activeList = this.activeList(lists, activeListId);
         const totalActiveTaskes = this.getTotalActiveTasks(
@@ -126,13 +135,21 @@ class ToDo extends Component {
                                     completeTaskAll={completeTaskAll}
                                     activeListId={activeListId}
                                     deleteTasksAll={deleteTasksAll}
+                                    openModal={this.openModal}
                                 />
                             </div>
                             <TodoDescr activeList={activeList} />
                         </div>
                     </div>
-                    {this.state.showModal && (
-                        <ModalLists>Модальное окно</ModalLists>
+                    {showModal && (
+                        <ModalLists>
+                            <CopyTasks
+                                openModal={this.openModal}
+                                copyTasks={copyTasks}
+                                tasks={filteredTasks}
+                                lists={lists}
+                            />
+                        </ModalLists>
                     )}
                 </Fragment>
             )
@@ -155,6 +172,7 @@ export default connect(
         changeFilter,
         sortTask,
         completeTaskAll,
-        deleteTasksAll
+        deleteTasksAll,
+        copyTasks
     }
 )(ToDo);

@@ -1,0 +1,13 @@
+.copy-task-item {
+    background: rgb(54, 160, 247);
+    color: #fff;
+    padding: 10px 20px;
+    margin-bottom: 1px;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 0.5s;
+}
+
+.copy-task-item:hover {
+    background: rgb(34, 124, 197);
+}

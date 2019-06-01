@@ -8,7 +8,8 @@ import {
     LIST_DEL,
     LIST_EDIT,
     TASK_COMPLETE_ALL,
-    TASKS_DELETE_ALL
+    TASKS_DELETE_ALL,
+    TASKS_COPY
 } from '../constants';
 
 let LISTS = TODO_LIST.lists;
@@ -142,6 +143,23 @@ const lists = (state = LISTS, { type, payload = {} }) => {
             return [...state].map(list => {
                 if (list.id === idList) {
                     return { ...list, name, img, descr };
+                }
+                return list;
+            });
+
+        case TASKS_COPY:
+            const { tasks, newId } = payload;
+            return [...state].map(list => {
+                if (list.id === idList) {
+                    return {
+                        ...list,
+                        tasks: [
+                            ...list.tasks,
+                            ...tasks.map((task, item) => {
+                                return { ...task, ...(task.id = newId + item) };
+                            })
+                        ]
+                    };
                 }
                 return list;
             });
