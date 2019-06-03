@@ -4,6 +4,7 @@ import {
     TASK_COMPLETE,
     TASK_DEL,
     TASK_SORT,
+    LIST_SORT,
     TODO_LIST,
     LIST_DEL,
     LIST_EDIT,
@@ -132,6 +133,18 @@ const lists = (state = LISTS, { type, payload = {} }) => {
                             return task;
                         })
                     };
+                }
+                return list;
+            });
+
+        case LIST_SORT:
+            const { moveList, replaceList } = payload;
+            return [...state].map(list => {
+                if (list.id === moveList.id) {
+                    return { ...replaceList };
+                }
+                if (list.id === replaceList.id) {
+                    return { ...moveList };
                 }
                 return list;
             });

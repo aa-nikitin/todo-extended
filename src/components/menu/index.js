@@ -8,11 +8,12 @@ const Menu = ({
     activeMenu,
     idActiveMenu,
     delList,
-    activeListForEdit
+    activeListForEdit,
+    moveList
 }) => {
     return (
         <ul className="menu">
-            {menuList.map(({ id, name }) => (
+            {menuList.map(({ id, name }, i) => (
                 <MenuItem
                     activeMenu={activeMenu}
                     key={id}
@@ -20,7 +21,9 @@ const Menu = ({
                     id={id}
                     activeClass={idActiveMenu === id ? 'active' : ''}
                     delList={delList}
+                    index={i}
                     activeListForEdit={activeListForEdit}
+                    moveList={moveList}
                 />
             ))}
         </ul>
@@ -32,7 +35,8 @@ Menu.propTypes = {
     activeMenu: PropTypes.func,
     idActiveMenu: PropTypes.number,
     delList: PropTypes.func,
-    activeListForEdit: PropTypes.func
+    activeListForEdit: PropTypes.func,
+    moveList: PropTypes.func
 };
 
 Menu.defaultProps = {
@@ -40,7 +44,8 @@ Menu.defaultProps = {
     activeMenu: () => {},
     idActiveMenu: 0,
     delList: () => {},
-    activeListForEdit: () => {}
+    activeListForEdit: () => {},
+    moveList: () => {}
 };
 
 export default Menu;

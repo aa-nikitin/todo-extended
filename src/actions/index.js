@@ -11,7 +11,8 @@ import {
     LIST_EDIT,
     TASK_COMPLETE_ALL,
     TASKS_DELETE_ALL,
-    TASKS_COPY
+    TASKS_COPY,
+    LIST_SORT
 } from '../constants';
 
 export const addList = (id, name) => ({
@@ -62,6 +63,11 @@ export const changeFilter = id => ({
 export const sortTask = (moveTask, replaceTask, idList) => ({
     type: TASK_SORT,
     payload: { moveTask, replaceTask, idList }
+});
+
+export const sortList = (moveList, replaceList) => ({
+    type: LIST_SORT,
+    payload: { moveList, replaceList }
 });
 
 export const delList = idList => ({

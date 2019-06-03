@@ -10,6 +10,7 @@ export const TASK_COMPLETE_ALL = 'TASK_COMPLETE_ALL';
 export const TASKS_DELETE_ALL = 'TASKS_DELETE_ALL';
 export const TASK_DEL = 'TASK_DEL';
 export const TASK_SORT = 'TASK_SORT';
+export const LIST_SORT = 'LIST_SORT';
 export const TASKS_COPY = 'TASKS_COPY';
 
 export const MENU_ACTIVE = 'MENU_ACTIVE';

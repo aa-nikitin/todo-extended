@@ -54,3 +54,13 @@
 .menu-item__button:last-child {
     border-right: 1px dashed transparent;
 }
+
+@media screen and (max-width: 992px) {
+    .menu-item__name {
+        padding: 15px 10px 15px 15px;
+    }
+    .menu-item__button {
+        font-size: 18px;
+        padding: 10px;
+    }
+}

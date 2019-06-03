@@ -1,47 +1,61 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './style.css';
+import { DragSource, DropTarget } from 'react-dnd';
+import MenuItem from './MenuItem';
 
-const MenuItem = ({
-    nameMenuItem,
-    activeMenu,
-    id,
-    activeClass,
-    delList,
-    activeListForEdit
-}) => {
-    return (
-        <li className={`menu-item ${activeClass}`}>
-            <span onClick={() => activeMenu(id)} className="menu-item__name">
-                {nameMenuItem}
-            </span>
-            <span className="menu-item__options">
-                <i
-                    onClick={() => activeListForEdit(id)}
-                    className="fas fa-pen-square menu-item__button"
-                />
-                <i
-                    onClick={() => delList(id)}
-                    className="fas fa-minus-square menu-item__button"
-                />
-            </span>
-        </li>
-    );
-};
+export default DropTarget(
+    'MenuItem',
+    {
+        hover(props, monitor, component) {
+            if (!component) {
+                return null;
+            }
+            const node = component.getNode();
+            if (!node) {
+                return null;
+            }
 
-MenuItem.propTypes = {
-    nameMenuItem: PropTypes.string,
-    activeMenu: PropTypes.func,
-    id: PropTypes.number,
-    activeClass: PropTypes.string,
-    activeListForEdit: PropTypes.func
-};
-MenuItem.defaultProps = {
-    nameMenuItem: '',
-    activeMenu: () => {},
-    id: 0,
-    activeClass: '',
-    activeListForEdit: () => {}
-};
+            const dragIndex = monitor.getItem().index;
+            const hoverIndex = props.index;
 
-export default MenuItem;
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+
+            const hoverBoundingRect = node.getBoundingClientRect();
+            const hoverMiddleY =
+                (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
+            const clientOffset = monitor.getClientOffset();
+            const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+
+            props.moveList(dragIndex, hoverIndex);
+            monitor.getItem().index = hoverIndex;
+        }
+    },
+    connect => ({
+        connectDropTarget: connect.dropTarget()
+    })
+)(
+    DragSource(
+        'MenuItem',
+        {
+            beginDrag: props => ({
+                id: props.id,
+                index: props.index
+            })
+        },
+        (connect, monitor) => {
+            return {
+                connectDragSource: connect.dragSource(),
+                isDragging: monitor.isDragging(),
+                sourceOffset: monitor.getSourceClientOffset()
+            };
+        }
+    )(MenuItem)
+);

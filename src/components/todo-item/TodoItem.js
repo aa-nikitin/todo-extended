@@ -31,7 +31,7 @@ const TodoItem = React.forwardRef(
                 : '';
 
         return (
-            <li className="todo-item" ref={elementRef}>
+            <li className="todo-item">
                 <span
                     style={Object.assign({}, { transform })}
                     className={`todo-item__left ${isCompleted ? 'active' : ''}`}
@@ -53,6 +53,10 @@ const TodoItem = React.forwardRef(
                     <i
                         onClick={() => delTask(id, activeListId)}
                         className="far fa-times-circle todo-item__del"
+                    />
+                    <i
+                        ref={elementRef}
+                        className="fas fa-expand-arrows-alt todo-item__move"
                     />
                 </span>
             </li>

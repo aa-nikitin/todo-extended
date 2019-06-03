@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 
 import Menu from '../../components/menu';
 import MenuInput from '../../components/menu-input';
-import { addList, activeMenu, delList, activeListForEdit } from '../../actions';
+import {
+    addList,
+    activeMenu,
+    delList,
+    activeListForEdit,
+    sortList
+} from '../../actions';
 
 import './style.css';
 
@@ -52,6 +58,12 @@ class Lists extends Component {
         this.setState({ showMenu: !showMenu });
     };
 
+    moveList = (dragIndex, hoverIndex) => {
+        const { lists, sortList } = this.props;
+        // console.log(lists[dragIndex], lists[hoverIndex]);
+        sortList(lists[dragIndex], lists[hoverIndex]);
+    };
+
     render() {
         const {
             lists,
@@ -78,6 +90,7 @@ class Lists extends Component {
                         delList={this.delList}
                         classShowMenu={classShowMenu}
                         activeListForEdit={activeListForEdit}
+                        moveList={this.moveList}
                     />
                 </div>
                 <div
@@ -100,5 +113,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { addList, activeMenu, delList, activeListForEdit }
+    { addList, activeMenu, delList, activeListForEdit, sortList }
 )(Lists);

@@ -16,6 +16,8 @@
     border-top: 1px solid rgb(235, 234, 234);
     font-size: 12px;
     font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
 }
 .footer__left {
     font-size: 12px;
@@ -45,7 +47,7 @@
     outline: none;
     border: 1px solid transparent;
     border-radius: 3px;
-    margin-left: 5px;
+    margin-right: 5px;
     transition-property: border-color;
     transition-duration: 0.5s;
 }

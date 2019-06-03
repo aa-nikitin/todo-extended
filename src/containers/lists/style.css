@@ -22,16 +22,19 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     position: fixed;
     z-index: 20;
     top: 2px;
     right: 4px;
     display: none;
-    padding: 0px 0px;
+    padding: 5px 5px;
     border-radius: 100%;
+    background: #fff;
+    transition-property: all;
+    transition-duration: 0.5s;
 }
 .mobile-menu__icon {
     display: block;
@@ -92,11 +95,15 @@
         width: 0%;
     }
     .header.active {
-        width: 90%;
+        width: 100%;
     }
     .mobile-menu {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+    }
+    .mobile-menu.active {
+        margin-right: 40px;
+        margin-top: 5px;
     }
 }
