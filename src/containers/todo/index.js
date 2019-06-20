@@ -157,6 +157,8 @@ class ToDo extends Component {
     }
 }
 
+export { ToDo };
+
 const mapStateToProps = ({ lists, activeList, activeFilter }) => ({
     lists,
     activeListId: activeList,

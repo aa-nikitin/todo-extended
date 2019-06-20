@@ -25,6 +25,7 @@ class Lists extends Component {
         const { listName } = this.state;
         const { addList, activeMenu } = this.props;
         const newId = new Date().getTime();
+
         if (listName.length > 1 && (!key || key === 'Enter')) {
             addList(newId, listName);
             activeMenu(newId);
@@ -35,6 +36,7 @@ class Lists extends Component {
     activeList = (lists, id) => {
         const { activeMenu } = this.props;
         const activeList = lists.filter(list => list.id === id)[0];
+
         if (activeList) {
             return activeList;
         } else if (lists[0]) {
@@ -55,12 +57,13 @@ class Lists extends Component {
 
     changeShowMenu = () => {
         const { showMenu } = this.state;
+
         this.setState({ showMenu: !showMenu });
     };
 
     moveList = (dragIndex, hoverIndex) => {
         const { lists, sortList } = this.props;
-        // console.log(lists[dragIndex], lists[hoverIndex]);
+
         sortList(lists[dragIndex], lists[hoverIndex]);
     };
 
@@ -96,6 +99,7 @@ class Lists extends Component {
                 <div
                     onClick={this.changeShowMenu}
                     className={`mobile-menu ${classShowMenu}`}
+                    id="mobile-menu-button"
                 >
                     <div className="mobile-menu__icon" />
                 </div>
@@ -103,6 +107,8 @@ class Lists extends Component {
         );
     }
 }
+
+export { Lists };
 
 const mapStateToProps = state => {
     return {

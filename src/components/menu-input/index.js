@@ -11,9 +11,14 @@ const MenuInput = ({ onChange, listName, addList }) => {
                 onChange={onChange}
                 value={listName}
                 onKeyPress={addList}
+                name="menu-input"
             />
             <div className="add-todo__button">
-                <i onClick={addList} className="fas fa-plus-circle" />
+                <i
+                    id="add-todo-button"
+                    onClick={addList}
+                    className="fas fa-plus-circle"
+                />
             </div>
         </div>
     );
