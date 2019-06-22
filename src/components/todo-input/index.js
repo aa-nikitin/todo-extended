@@ -11,8 +11,13 @@ const TodoInput = ({ taskName, addTask, onChange }) => {
                 placeholder="Введите задачу"
                 value={taskName}
                 onChange={onChange}
+                name="todo-input"
             />
-            <i onClick={addTask} className="todo-input__add fas fa-plus" />
+            <i
+                onClick={addTask}
+                className="todo-input__add fas fa-plus"
+                id="add-task-button"
+            />
         </div>
     );
 };

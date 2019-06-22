@@ -50,17 +50,6 @@ class ToDo extends Component {
         return { tasks: [] };
     };
 
-    getTotalActiveTasks = (tasks, activeFilter) => {
-        switch (activeFilter) {
-            case 'active':
-                return tasks.filter(task => !task.isCompleted).length;
-            case 'complete':
-                return tasks.filter(task => task.isCompleted).length;
-            default:
-                return tasks.length;
-        }
-    };
-
     filterTasks = (tasks, activeFilter) => {
         switch (activeFilter) {
             case 'active':
@@ -100,15 +89,10 @@ class ToDo extends Component {
             deleteTasksAll,
             copyTasks
         } = this.props;
-
         const { showModal } = this.state;
-
         const activeList = this.activeList(lists, activeListId);
-        const totalActiveTaskes = this.getTotalActiveTasks(
-            activeList.tasks,
-            activeFilter
-        );
         const filteredTasks = this.filterTasks(activeList.tasks, activeFilter);
+        const totalActiveTaskes = filteredTasks.length;
 
         return (
             activeListId && (

@@ -40,21 +40,35 @@ describe('lists test', () => {
 
     it('change the value state.listName when changing the input value', () => {
         const listName = 'test menu';
+
         wrapper.find('input[name="menu-input"]').simulate('change', {
             target: { name: 'menu-input', value: listName }
         });
-
         expect(wrapperLists.state().listName).toEqual(listName);
     });
 
-    it('clearing state.listName when the list is created', () => {
+    it('clearing state.listName when the list is created by pressing Button', () => {
         const listName = 'test menu';
+
         wrapper.find('input[name="menu-input"]').simulate('change', {
             target: { name: 'menu-input', value: listName }
         });
-
+        expect(wrapperLists.state().listName).not.toEqual('');
         wrapper.find('#add-todo-button').simulate('click');
-        expect(wrapperLists.state().listName).toBeFalsy();
+        expect(wrapperLists.state().listName).toEqual('');
+    });
+
+    it('clearing state.listName when the list is created by pressing Enter', () => {
+        const listName = 'test menu';
+
+        wrapper.find('input[name="menu-input"]').simulate('change', {
+            target: { name: 'menu-input', value: listName }
+        });
+        expect(wrapperLists.state().listName).not.toEqual('');
+        wrapperLists
+            .find('input[name="menu-input"]')
+            .simulate('keypress', { key: 'Enter' });
+        expect(wrapperLists.state().listName).toEqual('');
     });
 
     it('menu display in mobile version', () => {
@@ -69,11 +83,11 @@ describe('lists test', () => {
         expect(wrapperLists.instance().activeList(LISTS, 2).id).toBe(2);
     });
 
-    it('if the item id of the active item is not found', () => {
+    it('if the item id of the active item is not found (a function of activeList)', () => {
         expect(wrapperLists.instance().activeList(LISTS, 24).id).toBe(3);
     });
 
-    it('an empty list returns an empty object', () => {
+    it('an empty list returns an empty object (a function of activeList)', () => {
         expect(wrapperLists.instance().activeList(LISTS_EMPTY, 2)).toEqual({});
     });
 });
