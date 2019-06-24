@@ -27,6 +27,8 @@ class EditList extends Component {
     }
 }
 
+export { EditList };
+
 const mapStateToProps = ({ lists, editList }) => ({
     lists,
     editList
